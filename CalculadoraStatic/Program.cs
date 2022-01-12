@@ -11,11 +11,11 @@ namespace CalculadoraStatic
             int c = 0;
             char continuar = 's';
 
-            while (continuar != 'n' && continuar != 'N') 
-            { 
+            while (continuar != 'n' && continuar != 'N')
+            {
                 try
                 {
-                    
+
                     Console.WriteLine("Coloque dos numeros enteros separados por un ENTER: ");
                     a = int.Parse(Console.ReadLine());
                     b = int.Parse(Console.ReadLine());
@@ -26,6 +26,7 @@ namespace CalculadoraStatic
                     Console.WriteLine("4) Division entera");
                     c = int.Parse(Console.ReadLine());
                     Console.Write("RTA: ");
+
                     switch (c)
                     {
                         case 1:
@@ -33,7 +34,7 @@ namespace CalculadoraStatic
                             break;
                         case 2:
                             Console.WriteLine(resta(a, b));
-                           break;
+                            break;
                         case 3:
                             Console.WriteLine(multiplicacion(a, b));
                             break;
@@ -47,13 +48,15 @@ namespace CalculadoraStatic
                     Console.WriteLine("Para hacer otra cuenta presione una tecla distinta de 'n' o 'N', para terminar presione 'n' o 'N' ");
                     continuar = Convert.ToChar(Console.ReadLine());
                     Console.WriteLine(continuar);
-                
-                } catch (FormatException ex)
+                }
+                catch (FormatException ex)
                 {
                     Console.WriteLine("Error: Se coloco un formato no valido");
                 }
-                
-                
+                catch (DivideByZeroException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
             }
 
         }
@@ -71,8 +74,8 @@ namespace CalculadoraStatic
         }
         static int divicionEntera(int a, int b)
         {
-            if(b==0)
-                throw new Exception("Error: no se puede dividir 0 entre 0");
+            if (b == 0)
+                throw new DivideByZeroException("Error: no se puede dividir por 0");
             return a / b;
         }
         static int modulo(int a, int b)
